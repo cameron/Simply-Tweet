@@ -8,8 +8,6 @@ var client = (function(client, $){
 		kwargs = kwargs || {};
 		kwargs['user'] = client.settings.user;
         kwargs['pass'] = client.settings.pass;
-		kwargs['user'] = client.settings.user;
-        kwargs['pass'] = client.settings.pass;
 		kwargs['method'] = method;
 		$.ajax({
             url: proxy_url,

@@ -14,6 +14,8 @@ class TweetPhone(object):
 		format = format or self.default_format
 		if data:
 			data = urllib.urlencode(data)
+		else:
+			data = None
 		req = urllib2.Request(self.api_base + method + '.' + format, data, self.headers)
 		try:
 			response = urllib2.urlopen(req)

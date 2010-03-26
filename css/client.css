@@ -12,6 +12,7 @@ body{
 	padding:18px;
 	background-color:#B9D1EC;
 	border-bottom:1px solid #B0B8C4;
+	text-align:center;
 }
 
 #top-bar div{
@@ -37,11 +38,16 @@ body{
 	font-size:.9em;
 }
 
-#home-timeline{
+#page-wrapper{
+	text-align:center;
+}
+
+#nav-and-content{
 	background-color:#EBF4FF;
 	width:620px;
     margin:0 auto;
 	font-size:.9em;
+	text-align:center;
 }
 
 #update-status{
@@ -53,12 +59,12 @@ body{
 }
 
 .tweet{
+	text-align:left;
 	background-color:#E0EFFD;
 	line-height:1.4em;
 	width:600px;
 	margin:10px auto;
 	border-top:1px solid #D8E0ED;
-	border-bottom:1px solid #D8E0ED;
 }
 
 .tweet .text{
@@ -101,4 +107,33 @@ body{
 
 .red{
 	color:red;
+}
+
+#nav{
+	display:none;
+	list-style:none;
+	background-color:#E0EFFD;
+	text-transform:uppercase;
+	font-size:.9em;
+	letter-spacing:.15em;
+	font-family:"Helvetica", "Lucide Grande", sans-serif;
+	margin:0 10px;
+	padding:5px;
+	border-bottom:1px solid #D8E0ED;
+	color:#5A8AEE;
+}
+
+#nav div{
+	padding:6px;
+	height:20px;
+	display:inline;
+}
+
+.active{
+	color:#4D68B1;
+}
+
+#nav #refresh{
+	font-size:.8em;
+	padding-left:16px;
 }

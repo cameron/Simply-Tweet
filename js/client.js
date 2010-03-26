@@ -3,41 +3,43 @@ var client = (function(client, $){
 	client.settings = client.settings || {};
 	client.settings.max_tweet_length = 140;
 	client.settings.date_name_separator = 'on';
+	client.settings.cache_for = 5*60*1000; // lifetime of cached tweets in milliseconds
 
 	client.login = function(){
 		client.settings.user = $("#t-user").val();
 		client.settings.pass = $("#t-pass").val();
 		$("#error").hide();
-	    client.update_home_timeline();
+		$("#home-timeline").click();
 	}
 
-    client._cheat_in = function(){
-		client.settings.user = 'froomyusbander';
-		client.settings.pass = 'sniffles';
-		client.update_home_timeline();
-    }
+	client._cheat_in = function(){
+				client.settings.user = 'froomyusbander';
+				client.settings.pass = 'sniffles';
+		//client.settings.user = 'boehmerc';
+		//client.settings.pass = '2glkrnat';
+		$("#home-timeline").click();
+	}
 
-    client.update_home_timeline = function(){
-		client.api.call('statuses/home_timeline', client.render_home_timeline);
-    }
-
-    client.tweet = function(){
+	client.tweet = function(){
 		var status = $("#t-status").val().substr(0,141);
 		client.api.call('statuses/update', client.on_tweeted, {status:status});
 	}
 
-    client.on_tweeted = function(data, status, xhr){
-		$("#home-timeline").prepend(client.construct_tweet(data[0] || data));
-    }
+	client.on_tweeted = function(data, status, xhr){
+		$("#home-timeline-content, #user-timeline-content").prepend(client.construct_tweet(data[0] || data));
+		$("#home-timeline").click();
+	}
 
-	client.render_home_timeline = function(tweets, status, xhr){
+	client.render_tweets = function(tweets, dest_div){
 		$("#login").hide();
 		$("#update-status").show();
 		var str = '<div class="clear">&nbsp;</div>';
 		for(tweet in tweets){
 			str += client.construct_tweet(tweets[tweet]);
 		}
-		$("#home-timeline").html(str);
+		str += '<div class="clear">&nbsp;</div>';
+		dest_div.html(str);
+		client.show_content(dest_div);
 	}
 
 	client.construct_tweet = function(tweet){
@@ -47,7 +49,7 @@ var client = (function(client, $){
 		+ '<div class="text">' + tweet['text'] + '</div>'
 		+ '<div class="name-and-date">'
 		+ '<span class="name">' + tweet['user']['screen_name'] + '</span>'
-        + '<span class="date-name-sep">' + client.settings.date_name_separator + '</span>'
+		+ '<span class="date-name-sep">' + client.settings.date_name_separator + '</span>'
 		+ '<span class="date">' + tweet['created_at'].substr(4,12) + '</span>'
 		+ '</div>'
 		+ '<div class="clear">&nbsp;</div>'
@@ -56,7 +58,7 @@ var client = (function(client, $){
 		+ '</div>';
 	}
 
-    client.tweet_key = function(){
+	client.type_tweet = function(){
 		var tweet_btn = $("#t-submit");
 		var status = $("#t-status");
 		var char_count = $("#char-count");
@@ -67,17 +69,45 @@ var client = (function(client, $){
 			char_count.addClass("red");
 			tweet_btn.attr('disabled', true);
 		}
-    }
-
-    client.init = function(){
-		$("#t-user").focus();
-		$("#t-status").keyup(client.tweet_key);
-        $("#t-submit").click(client.tweet);
-		$("#t-login").click(client.login);
-   		client._cheat_in();
 	}
 
-    $(function(){client.init()});
+	client.init = function(){
+		$("#t-user").focus();
+		$("#t-status").keyup(client.type_tweet);
+		$("#t-submit").click(client.tweet);
+		$("#t-login").click(client.login);
+		$("#nav div").click(client.load_tweets);
+	}
+
+	client.load_tweets = function(e, force_refresh){
+		if(e.target.id == 'refresh'){
+			e.target = $("#nav .active")[0];
+			return client.load_tweets(e, true);
+		}
+		$("#nav div").removeClass("active");
+		$(e.target).addClass("active");
+		var method = e.target.id.replace(/-/g,'_');
+		var dest_div = $("#" + e.target.id + '-content');
+		var now = new Date().getTime();
+        var last_load = dest_div.data('last_load');
+		if(now - last_load < client.settings.cache_for && !force_refresh){
+			client.show_content(dest_div);
+		} else {
+			client.api.call("statuses/" + method, function(data, status, xhr){
+				$("#nav").show();
+				$("#error").hide();
+				dest_div.data('last_load', now);
+				client.render_tweets(data, dest_div);
+			});
+		}
+	}
+
+	client.show_content = function(div){
+		$("#tweets .content").hide();
+		div.show();
+	}
+
+	$(function(){client.init()});
 
 	return client;
 }(client || {}, jQuery));
