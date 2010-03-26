@@ -1,0 +1,26 @@
+var client = (function(client, $){
+	client.settings = client.settings || {};
+	var api = client.api = client.api || {};
+	var proxy_url = 'proxy.py';
+	api.cache = {}
+	api.call = function(method, callback, kwargs){
+		if( api[method] ){
+			console.log('returning cached data');
+			return callback(api[method], 'cached');
+		}
+		kwargs = kwargs || {};
+		kwargs['user'] = client.settings.user;
+        kwargs['pass'] = client.settings.pass;
+		kwargs['method'] = method;
+		$.ajax({
+            url: proxy_url,
+			data: kwargs,
+		   	dataType: 'json',
+            success: function(data, status, xhr){
+				api.cache[method] = data;
+				callback(data, status, xhr);
+			}
+        });
+	};
+	return client;
+}(client || {}, jQuery));

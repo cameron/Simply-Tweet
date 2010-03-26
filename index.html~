@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>Twixpiriment</title>
+	<script type='text/javascript' src='js/jquery-1.4.2.js'></script>
+	<script type='text/javascript' src='js/test_data.js'></script>
+	<script type='text/javascript' src='js/client.js'></script>
+	<script type='text/javascript' src='js/twitter_api.js'></script>
+	<link rel='stylesheet' type='text/css' href='css/client.css'>
+</head>
+<body>
+<div id='login'>
+	<input type='text' id='t-user'>
+	<input type='password' id='t-pass'>
+	<input type='submit' value='Login to see your Home Timeline from Twitter.com' onclick='client.login()'>
+</div>
+<div id='update-status-container'>
+	<input type='text' id='t-status'>
+	<input type='submit' value='Tweet' onclick='client.tweet();'>
+</div>
+<div id='home-timeline'></div>
+</body>
+</html>

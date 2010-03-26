@@ -1,0 +1,39 @@
+var client = (function(client, $){
+
+	client.settings = client.settings || {};
+
+	client.login = function(){
+		client.settings.user = $("#t-user").val();
+		client.settings.pass = $("#t-pass").val();
+		//client.api.call('statuses/home_timeline', client.render_home_timeline);
+		client.cheat();
+	}
+
+    client.tweet = function(){
+		var status = $("#t-status").val().substr(0,141);
+		client.api.call('statuses/update', function(data){ console.log(data); }, {status:status});
+	}
+
+    client.cheat = function(){
+		client.render_home_timeline(test_data);
+    }
+
+	client.render_home_timeline = function(data, status, xhr){
+		var str = '';
+		for(tweet in data){
+			str += '<div class="tweet">';
+			str += '<div class="user-pic"><img src="' + data[tweet]['user']['profile_image_url'] + '"/></div>';
+			str += '<div class="content">';
+			str += '<div class="text">' + data[tweet]['text'] + '</div>';
+			str += '<div class="date">' + data[tweet]['created_at'] + '</div>';
+			str += '</div>';
+			str += '<div class="clear">&nbsp;</div>';
+			str += '</div>';
+		}
+		$("#login").hide();
+		$("#home-timeline").html(str);
+	}
+
+    $(function(){$("#t-user").focus(); client.cheat();});
+	return client;
+}(client || {}, jQuery));

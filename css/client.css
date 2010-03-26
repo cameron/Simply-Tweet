@@ -1,0 +1,104 @@
+*{
+	margin:0;
+	padding:0;
+	font-family:Georgia, serif;
+}
+
+body{
+	background-color:#D7EBF8;
+}
+
+#top-bar{
+	padding:18px;
+	background-color:#B9D1EC;
+	border-bottom:1px solid #B0B8C4;
+}
+
+#top-bar div{
+	margin:0 auto;
+}
+
+#top-bar #login{
+	width:440px;
+}
+
+#top-bar #update-status{
+	width:900px;
+}
+
+#error{
+	display:none;
+	background-color: #FFF5B3;
+    color:#FF8861;
+	padding:13px;
+}
+
+#error a{
+	font-size:.9em;
+}
+
+#home-timeline{
+	background-color:#EBF4FF;
+	width:620px;
+    margin:0 auto;
+	font-size:.9em;
+}
+
+#update-status{
+	display:none;
+}
+
+.text-and-pic{
+	padding:13px 0;
+}
+
+.tweet{
+	background-color:#E0EFFD;
+	line-height:1.4em;
+	width:600px;
+	margin:10px auto;
+	border-top:1px solid #D8E0ED;
+	border-bottom:1px solid #D8E0ED;
+}
+
+.tweet .text{
+}
+
+.tweet .name-and-date{
+	font-size:.7em;
+    color:#777;
+	position:relative;
+	top:5px;
+}
+
+.tweet .date{
+	padding-left:6px;
+}
+
+.tweet .date-name-sep{
+	color:#AAA;
+}
+
+.tweet .name{
+	padding-right:6px
+}
+
+.user-pic{
+	float:left;
+	margin:0 13px;
+}
+
+.clear{
+	clear:both;
+	font-size:0em;
+	line-height:0;
+}
+
+#hide-error{
+	font-size:.9em;
+	padding-left:20px;
+}
+
+.red{
+	color:red;
+}

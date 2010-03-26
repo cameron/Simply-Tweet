@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>Twixpiriment</title>
+	<script type='text/javascript' src='js/jquery-1.4.2.js'></script>
+	<script type='text/javascript' src='js/test_data.js'></script>
+	<script type='text/javascript' src='js/twitter_api.js'></script>
+	<script type='text/javascript' src='js/client.js'></script>
+	<link rel='stylesheet' type='text/css' href='css/client.css'>
+</head>
+<body>
+<div id='error' onclick='$("#error").hide()'><span id='error-message'></span><a href='#' onclick='$("#error").hide();'>Hide</a></div>
+<div id='top-bar'>
+	<div id='login'>
+		<input type='text' id='t-user'>
+		<input type='password' id='t-pass'>
+		<input type='submit' id='t-login' value='Log in to your Twitter account'>
+	</div>
+	<div id='update-status'>
+		<input type='text' id='t-status' size='140'>
+		<input type='submit' value='Tweet' id='t-submit'>
+		<span id='char-count'></span>
+	</div>
+</div>
+<div id='home-timeline'><div class='tweet' style='text-align:center;padding:8px;'>Log in to see your home timeline.</div></div>
+</body>
+</html>
