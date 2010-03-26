@@ -9,6 +9,7 @@ var client = (function(client, $){
 		kwargs['user'] = client.settings.user;
         kwargs['pass'] = client.settings.pass;
 		kwargs['method'] = method;
+		kwargs['salt'] = new Date().getTime(); // prevents IE from caching queries
 		$.ajax({
             url: proxy_url,
 			data: kwargs,

@@ -5,5 +5,6 @@ from TweetPhone import TweetPhone
 import cgi
 
 form = dict([(k,v.value) for k,v in dict(cgi.FieldStorage()).iteritems()])
+form.pop('salt')
 phone = TweetPhone(form.pop('user',''), form.pop('pass',''))
 print phone.call(form.pop('method'), form)
