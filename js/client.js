@@ -12,12 +12,12 @@ var client = (function(client, $){
 		$("#home-timeline").click();
 	}
 
-	client._cheat_in = function(){
-				client.settings.user = 'froomyusbander';
-				client.settings.pass = 'sniffles';
-		//client.settings.user = 'boehmerc';
-		//client.settings.pass = '2glkrnat';
-		$("#home-timeline").click();
+	client.init = function(){
+		$("#t-user").focus();
+		$("#t-status").keyup(client.on_type_tweet);
+		$("#t-submit").click(client.tweet);
+		$("#t-login").click(client.login);
+		$("#nav div").click(client.load_tweets);
 	}
 
 	client.tweet = function(){
@@ -58,7 +58,7 @@ var client = (function(client, $){
 		+ '</div>';
 	}
 
-	client.type_tweet = function(){
+	client.on_type_tweet = function(){
 		var tweet_btn = $("#t-submit");
 		var status = $("#t-status");
 		var char_count = $("#char-count");
@@ -69,14 +69,6 @@ var client = (function(client, $){
 			char_count.addClass("red");
 			tweet_btn.attr('disabled', true);
 		}
-	}
-
-	client.init = function(){
-		$("#t-user").focus();
-		$("#t-status").keyup(client.type_tweet);
-		$("#t-submit").click(client.tweet);
-		$("#t-login").click(client.login);
-		$("#nav div").click(client.load_tweets);
 	}
 
 	client.load_tweets = function(e, force_refresh){
