@@ -1,3 +1,5 @@
+// interface for Twitter API (ajax -> server-side proxy -> Twitter)
+
 var client = (function(client, $){
 
 	client.settings = client.settings || {};

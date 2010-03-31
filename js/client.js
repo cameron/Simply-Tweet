@@ -1,3 +1,5 @@
+// Everything except the js twitter api interface
+
 var client = (function(client, $){
 
 	client.settings = client.settings || {};
@@ -23,11 +25,6 @@ var client = (function(client, $){
 	client.tweet = function(){
 		var status = $("#t-status").val().substr(0,141);
 		client.api.call('statuses/update', client.on_tweeted, {status:status});
-	}
-
-	client.on_tweeted = function(data, status, xhr){
-		$("#home-timeline-content, #user-timeline-content").prepend(client.construct_tweet(data[0] || data));
-		$("#home-timeline").click();
 	}
 
 	client.render_tweets = function(tweets, dest_div){
@@ -56,6 +53,11 @@ var client = (function(client, $){
 		+ '</div>'
 		+ '<div class="clear">&nbsp;</div>'
 		+ '</div>';
+	}
+
+	client.on_tweeted = function(data, status, xhr){
+		$("#home-timeline-content, #user-timeline-content").prepend(client.construct_tweet(data[0] || data));
+		$("#home-timeline").click();
 	}
 
 	client.on_type_tweet = function(){
