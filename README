@@ -1,0 +1,7 @@
+A just-for-fun exercise with the Twitter API and github.
+
+Only requirements are Python* and a web server.
+
+*Developed on Python 2.4.4. Not sure how far back it'll go before it breaks, but it's pretty minimal code.
+
+Feedback encouraged and appreciated.
